@@ -18,8 +18,8 @@ def upload():
   album = {
     'photos': []
   }
+
   for f in files.getlist('file'):
-    print f
     destination_name = generate_filename(f)
     album['photos'].append('%s/%s' % (bucket_address, destination_name))
     upload_s3(f, destination_name)
@@ -41,6 +41,7 @@ def request_album_creation():
     'photos': urls
   }
   request_album(album)
+
   return jsonify()
 
 def upload_s3(source_file, destination_filename):
