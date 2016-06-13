@@ -1,0 +1,32 @@
+---
+- hosts: webui
+  vars:
+    - os_packages:
+        - git
+        - gcc
+        - libjpeg-devel
+        - zlib-devel
+    - python_packages:
+        - Flask
+        - boto3
+        - jinja2
+        - xhtml2pdf
+  tasks:
+    - name: "Update AWS config"
+      file: dest=~/.aws state=directory
+    - template:
+        src: "templates/aws_config"
+        dest: "~/.aws/config"
+    - name: "install common dependencies"
+      yum: name={{item}}
+      with_items: "{{os_packages}}"
+      become: yes
+    - name: "install python dependencies"
+      pip: name={{item}}
+      with_items: "{{python_packages}}"
+      become: yes
+    - name: "synchronize repository"
+      git:
+        repo: https://github.com/pelinskip/webapp.git
+        dest: ~/webapp
+        accept_hostkey: true

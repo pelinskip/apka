@@ -4,15 +4,13 @@ from uuid import uuid4
 from flask import Flask, render_template, jsonify, request, send_from_directory
 app = Flask(__name__)
 
-bucket_address = 'https://s3.eu-central-1.amazonaws.com/153412-kkanclerz'
+bucket_address = 'https://s3.eu-central-1.amazonaws.com/167885'
 
-@app.route("/hello")
-def hello():
-    return "Hello World!"
 
 @app.route("/")
 def index():
-  return render_template('upload_form.html', uploadButtonName="send")
+  return render_template('upload_form.html')
+
 
 @app.route("/upload", methods=['POST'])
 def upload():
@@ -25,7 +23,9 @@ def upload():
     destination_name = generate_filename(f)
     album['photos'].append('%s/%s' % (bucket_address, destination_name))
     upload_s3(f, destination_name)
+
   return jsonify(album)
+
 
 @app.route("/request-album", methods=['POST'])
 def request_album_creation():
@@ -54,4 +54,4 @@ def generate_filename(source_file):
   return destination_filename
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True, port=5000)
