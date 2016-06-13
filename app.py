@@ -1,7 +1,7 @@
-import os, boto3
+import boto3
 from album_queue import request_album
 from uuid import uuid4
-from flask import Flask, render_template, jsonify, request, send_from_directory
+from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 bucket_address = 'https://s3.eu-central-1.amazonaws.com/167885'
@@ -44,9 +44,8 @@ def request_album_creation():
   return jsonify()
 
 def upload_s3(source_file, destination_filename):
-  bucket_name = '153412-kkanclerz'
   s3 = boto3.resource('s3')
-  bucket = s3.Bucket(bucket_name)
+  bucket = s3.Bucket(bucket_address)
   bucket.put_object(Key=destination_filename, Body=source_file, ACL='public-read')
 
 def generate_filename(source_file):
