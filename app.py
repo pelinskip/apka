@@ -4,7 +4,7 @@ from uuid import uuid4
 from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
-bucket_address = 'https://s3.eu-central-1.amazonaws.com/167885'
+bucket_address = '167885'
 
 
 @app.route("/")
