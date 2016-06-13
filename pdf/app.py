@@ -13,6 +13,8 @@ def upload_s3(source_file, filename):
   bucket = s3.Bucket(bucket_name)
   bucket.put_object(Key=destination_filename, Body=source_file, ACL='public-read')
 
+  return destination_filename
+
 sqs = boto3.resource('sqs')
 albumRequests = sqs.get_queue_by_name(QueueName='pelinski-album')
 
