@@ -4,8 +4,8 @@ from uuid import uuid4
 from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
-bucket_address = '167885'
-
+bucket_address = 'https://s3.eu-central-1.amazonaws.com/167885'
+bucket_name = '167885'
 
 @app.route("/")
 def index():
@@ -46,7 +46,7 @@ def request_album_creation():
 
 def upload_s3(source_file, destination_filename):
   s3 = boto3.resource('s3')
-  bucket = s3.Bucket(bucket_address)
+  bucket = s3.Bucket(bucket_name)
   bucket.put_object(Key=destination_filename, Body=source_file, ACL='public-read')
 
 def generate_filename(source_file):

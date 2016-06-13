@@ -33,6 +33,3 @@ def send_email(to, subject, body):
         ReturnPath='s167885@wizard.uek.krakow.pl'
     )
     return response
-
-
-print send_email('czesakjacek@gmail.com', 'test', 'test')
