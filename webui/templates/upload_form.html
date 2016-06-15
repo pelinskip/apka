@@ -1,30 +1,72 @@
+<!DOCTYPE html>
 <html>
  <head>
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
   <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width" = device-width, initial-scale=1">
+  <style>
+  
+	body {
+		background: #2c3e50;
+	}
+	
+	h1 {
+		color: white;
+		text-align: center;
+	}
+
+	h2 {
+		font-size: 100%;
+		color: white;
+		text-align: center;
+	
+	}
+
+	p {
+		font-family: "Times New Roman";
+		font-size: 20px
+	}
+
+	form {
+		text-align: center;
+		
+	}
+	
+
+  
+  </style>
   </head>
  <body>
-  <h1>Here you can create your own album</h1>
+  <h1>Tutaj możesz stworzyć swój własny album</h1>
   <div class="dropzone" id="dropzoneForm">
   </div>
+
+
+    
   <form class="requestAlbumForm" action="{{url_for('request_album_creation')}}" method="POST">
+    <h2>Podaj adres e-mail</h2>
      <input name="email" type="text"/>
-     <button type="submit">Create Album</button>
+	
+     <button type="submit" class ="btn-danger btn-sm">Stwórz album</button>
   </form>
+
+  
   <script type="text/javascript">
    var createInput = function(count, path) {
        	 var input = '<input type="hidden" class="photo" name="photos___number__" value="__value__"/>"'
          input = input.replace('__number__', count);
          input = input.replace('__value__',  path);
-
+         console.log(input)
        	 return	input;
-   }
-
+       }
    $(".dropzone").dropzone({
      maxFiles: 2000,
      url: "{{ url_for('upload') }}",
      success: function(file, response){
+       console.log(response);
        var photosCount = $('.requestAlbumForm input.photo').length;
        
        response.photos.forEach(function(photo){
