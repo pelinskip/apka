@@ -1,13 +1,27 @@
 <html>
 	<head>
+	<style>
+	body {
+		background: #2c3e50;
+	}
+	#borderimg1 {
+    border: 10px solid transparent;
+    padding: 15px;
+    -webkit-border-image: url(border.png) 30 round; /* Safari 3.1-5 */
+    -o-border-image: url(border.png) 30 round; /* Opera 11-12.1 */
+    border-image: url(border.png) 30 round;
+}
+	</style>
 	</head>
 	<body>
+	<center>
 	   <ul class="list-group">
-          {% for photo in variables.photos %}
-	        <li class="list-group-item">
-                <img src="{{ photo }}" class="img-circle" height="500" />
-             </li>
-	      {% endfor %}
-       </ul>
+           {% for photo in variables.photos %}
+	    <li class="list-group-item" id="borderimg1">
+             <img src="{{ photo }}" class="img-circle" height="250" />
+            </li>
+	   {% endfor %}
+           </ul>
+        </center>   
 	</body>
 </html>
